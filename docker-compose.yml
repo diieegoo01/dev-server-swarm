@@ -1,7 +1,17 @@
-version: '2'
+version: "3"
+networks:
+  hyperledger:
+    external:
+      name: hyperledger
 
 services:
   ca.org1.example.com:
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
     image: hyperledger/fabric-ca:1.2.0
     environment:
       - FABRIC_CA_HOME=/etc/hyperledger/fabric-ca-server
@@ -13,8 +23,18 @@ services:
     volumes:
       - ./crypto-config/peerOrganizations/org1.example.com/ca/:/etc/hyperledger/fabric-ca-server-config
     container_name: ca.org1.example.com
+    networks:
+      hyperledger:
+        aliases:
+        - ca.org1.example.com
 
   orderer.example.com:
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
     container_name: orderer.example.com
     image: hyperledger/fabric-orderer:1.2.0
     environment:
@@ -31,8 +51,19 @@ services:
     volumes:
         - ./:/etc/hyperledger/configtx
         - ./crypto-config/ordererOrganizations/example.com/orderers/orderer.example.com/msp:/etc/hyperledger/msp/orderer/msp
+    networks:
+      hyperledger:
+        aliases:
+        - orderer.example.com
 
   peer0.org1.example.com:
+
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
     container_name: peer0.org1.example.com
     image: hyperledger/fabric-peer:1.2.0
     environment:
@@ -59,11 +90,25 @@ services:
     depends_on:
       - orderer.example.com
       - couchdb
+    networks:
+      hyperledger:
+        aliases:
+        - peer0.org1.example.com
 
   couchdb:
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
     container_name: couchdb
     image: hyperledger/fabric-couchdb:0.4.10
     ports:
       - 5984:5984
     environment:
       DB_URL: http://localhost:5984/member_db
+    networks:
+      hyperledger:
+        aliases:
+        - couchdb
