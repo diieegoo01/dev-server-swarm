@@ -14,7 +14,6 @@ services:
       placement:
         constraints: [node.hostname == peer2]
     hostname: peer0.org1.example.com
-    container_name: peer0.org1.example.com
     image: hyperledger/fabric-peer:1.2.0
     environment:
       - CORE_LOGGING_LEVEL=debug
@@ -55,7 +54,6 @@ services:
       placement:
         constraints: [node.hostname == peer2]
     hostname: peer1.org1.example.com
-    container_name: peer1.org1.example.com
     image: hyperledger/fabric-peer:1.2.0
     environment:
       - CORE_LOGGING_LEVEL=debug
@@ -97,7 +95,6 @@ services:
       placement:
         constraints: [node.hostname == peer3]
     hostname: peer2.org1.example.com
-    container_name: peer2.org1.example.com
     image: hyperledger/fabric-peer:1.2.0
     environment:
       - CORE_LOGGING_LEVEL=debug
@@ -138,7 +135,6 @@ services:
       placement:
         constraints: [node.hostname == peer3]
     hostname: peer3.org1.example.com
-    container_name: peer3.org1.example.com
     image: hyperledger/fabric-peer:1.2.0
     environment:
       - CORE_LOGGING_LEVEL=debug

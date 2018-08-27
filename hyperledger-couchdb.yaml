@@ -12,6 +12,8 @@ services:
         condition: on-failure
         delay: 5s
         max_attempts: 3
+      placement:
+        constraints: [node.hostname == peer2]
     hostname: couchdb0
     image: hyperledger/fabric-couchdb:0.4.10
     ports:
@@ -30,6 +32,8 @@ services:
         condition: on-failure
         delay: 5s
         max_attempts: 3
+      placement:
+        constraints: [node.hostname == peer2]
     hostname: couchdb1
     image: hyperledger/fabric-couchdb:0.4.10
     ports:
@@ -48,6 +52,8 @@ services:
         condition: on-failure
         delay: 5s
         max_attempts: 3
+      placement:
+        constraints: [node.hostname == peer3]
     hostname: couchdb2
     image: hyperledger/fabric-couchdb:0.4.10
     ports:
@@ -66,6 +72,8 @@ services:
         condition: on-failure
         delay: 5s
         max_attempts: 3
+      placement:
+        constraints: [node.hostname == peer3]
     hostname: couchdb3
     image: hyperledger/fabric-couchdb:0.4.10
     ports:
