@@ -13,7 +13,6 @@ services:
         delay: 5s
         max_attempts: 3
     hostname: couchdb0
-    container_name: couchdb0
     image: hyperledger/fabric-couchdb:0.4.10
     ports:
       - 5984:5984
@@ -32,7 +31,6 @@ services:
         delay: 5s
         max_attempts: 3
     hostname: couchdb1
-    container_name: couchdb1
     image: hyperledger/fabric-couchdb:0.4.10
     ports:
       - 6984:5984
@@ -51,7 +49,6 @@ services:
         delay: 5s
         max_attempts: 3
     hostname: couchdb2
-    container_name: couchdb2
     image: hyperledger/fabric-couchdb:0.4.10
     ports:
       - 7984:5984
@@ -70,7 +67,6 @@ services:
         delay: 5s
         max_attempts: 3
     hostname: couchdb3
-    container_name: couchdb3
     image: hyperledger/fabric-couchdb:0.4.10
     ports:
       - 8984:5984
