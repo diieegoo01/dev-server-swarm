@@ -1,7 +1,22 @@
-version: '2'
-
+version: '3'
+networks:
+  hyperledger:
+    external:
+      name: hyperledger
 services:
-  ca.org1.example.com:
+  ca:
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+      placement:
+        constraints: [node.hostname == peer1]
+    networks:
+      hyperledger:
+        aliases:
+        - ca.org1.example.com
     image: hyperledger/fabric-ca:1.2.0
     environment:
       - FABRIC_CA_HOME=/etc/hyperledger/fabric-ca-server
@@ -14,8 +29,20 @@ services:
       - ./crypto-config/peerOrganizations/org1.example.com/ca/:/etc/hyperledger/fabric-ca-server-config
     container_name: ca.org1.example.com
 
-  orderer.example.com:
+  orderer:
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+      placement:
+        constraints: [node.hostname == peer2]
     container_name: orderer.example.com
+    networks:
+      hyperledger:
+        aliases:
+        - orderer.example.com
     image: hyperledger/fabric-orderer:1.2.0
     environment:
       - ORDERER_GENERAL_LOGLEVEL=debug

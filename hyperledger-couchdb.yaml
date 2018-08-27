@@ -1,0 +1,82 @@
+version: "3"
+networks:
+  hyperledger:
+    external:
+      name: hyperledger
+services:
+
+  couchdb0:
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+    hostname: couchdb0
+    container_name: couchdb0
+    image: hyperledger/fabric-couchdb:0.4.10
+    ports:
+      - 5984:5984
+    environment:
+      DB_URL: http://localhost:5984/member_db
+    networks:
+      hyperledger:
+        aliases:
+        - couchdb
+    
+  couchdb1:
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+    hostname: couchdb1
+    container_name: couchdb1
+    image: hyperledger/fabric-couchdb:0.4.10
+    ports:
+      - 6984:5984
+    environment:
+      DB_URL: http://localhost:6984/member_db
+    networks:
+      hyperledger:
+        aliases:
+        - couchdb
+    
+  couchdb2:
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+    hostname: couchdb2
+    container_name: couchdb2
+    image: hyperledger/fabric-couchdb:0.4.10
+    ports:
+      - 7984:5984
+    environment:
+      DB_URL: http://localhost:7984/member_db
+    networks:
+      hyperledger:
+        aliases:
+        - couchdb
+  
+  couchdb3:
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+    hostname: couchdb3
+    container_name: couchdb3
+    image: hyperledger/fabric-couchdb:0.4.10
+    ports:
+      - 8984:5984
+    environment:
+      DB_URL: http://localhost:8984/member_db
+    networks:
+      hyperledger:
+        aliases:
+        - couchdb
